@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Unified KP + Placidus 6th/11th CSL + Natal + Dasha + Risk Terminal (v5 Final)</title>
+<style>
+  :root {
+    --bg-main: #090d16;
+    --bg-card: #111726;
+    --bg-sub: #172033;
+    --bg-hover: #1f2b44;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-col: #253147;
+    --accent: #f59e0b;
+    --blue: #3b82f6;
+    --green-bg: rgba(16, 185, 129, 0.14);
+    --green-txt: #34d399;
+    --green-bdr: rgba(16, 185, 129, 0.4);
+    --red-bg: rgba(239, 68, 68, 0.14);
+    --red-txt: #f87171;
+    --red-bdr: rgba(239, 68, 68, 0.4);
+    --amber-bg: rgba(245, 158, 11, 0.14);
+    --amber-txt: #fbbf24;
+    --amber-bdr: rgba(245, 158, 11, 0.4);
+    --purple-bg: rgba(168, 85, 247, 0.15);
+    --purple-txt: #d8b4fe;
+    --purple-bdr: rgba(168, 85, 247, 0.4);
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+  [data-theme="light"] {
+    --bg-main: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-sub: #f8fafc;
+    --bg-hover: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border-col: #cbd5e1;
+    --accent: #d97706;
+    --blue: #2563eb;
+    --green-bg: #dcfce7;
+    --green-txt: #15803d;
+    --green-bdr: #86efac;
+    --red-bg: #fee2e2;
+    --red-txt: #b91c1c;
+    --red-bdr: #fca5a5;
+    --amber-bg: #fef3c7;
+    --amber-txt: #b45309;
+    --amber-bdr: #fcd34d;
+    --purple-bg: #f3e8ff;
+    --purple-txt: #7e22ce;
+    --purple-bdr: #d8b4fe;
+    --shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  body { background: var(--bg-main); color: var(--text-main); padding: 14px; line-height: 1.5; transition: 0.25s; }
+  .container { max-width: 1560px; margin: 0 auto; }
+
+  .topbar {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;
+    background: var(--bg-card); padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border-col);
+    border-left: 4px solid var(--accent); box-shadow: var(--shadow); margin-bottom: 12px;
+  }
+  .brand h1 { font-size: 1.25rem; font-weight: 800; color: var(--text-main); }
+  .brand h1 span { color: var(--accent); }
+  .brand p { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .exch-btn {
+    padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border-col);
+    background: var(--bg-sub); color: var(--text-main); font-weight: 600; font-size: 0.83rem;
+    cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s;
+  }
+  .exch-btn:hover { background: var(--bg-hover); }
+  .exch-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.open { background: #10b981; box-shadow: 0 0 6px #10b981; }
+  .dot.closed { background: #64748b; }
+
+  select, input[type="date"], input[type="time"], input[type="text"], input[type="number"], .btn {
+    padding: 7px 11px; border-radius: 8px; border: 1px solid var(--border-col);
+    background: var(--bg-sub); color: var(--text-main); font-size: 0.83rem;
+  }
+  .btn-gold { background: var(--accent); color: #000; font-weight: 700; border: none; cursor: pointer; }
+  .btn-gold:hover { opacity: 0.9; }
+  .btn-green { background: #10b981; color: #000; font-weight: 700; border: none; cursor: pointer; }
+  .btn-green:hover { opacity: 0.9; }
+
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 700; border: 1px solid transparent; }
+  .b-green { background: var(--green-bg); color: var(--green-txt); border-color: var(--green-bdr); }
+  .b-red { background: var(--red-bg); color: var(--red-txt); border-color: var(--red-bdr); }
+  .b-amber { background: var(--amber-bg); color: var(--amber-txt); border-color: var(--amber-bdr); }
+  .b-purple { background: var(--purple-bg); color: var(--purple-txt); border-color: var(--purple-bdr); }
+
+  .ribbon { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .rib-box { background: var(--bg-card); border: 1px solid var(--border-col); border-radius: 10px; padding: 10px 14px; box-shadow: var(--shadow); }
+  .rib-lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
+  .rib-val { font-size: 0.96rem; font-weight: 700; margin-top: 3px; }
+  .rib-sub { font-size: 0.76rem; color: var(--accent); margin-top: 2px; }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border-col); border-radius: 12px; padding: 15px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .card-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 11px; padding-bottom: 8px; border-bottom: 1px solid var(--border-col); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1.15fr 1.35fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 12px; }
+  @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .xray-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin-bottom: 10px; }
+  .xray-item { background: var(--bg-sub); padding: 9px 11px; border-radius: 8px; border: 1px solid var(--border-col); }
+  .xray-item .lbl { font-size: 0.73rem; color: var(--text-muted); }
+  .xray-item .val { font-size: 0.94rem; font-weight: 700; margin-top: 2px; }
+
+  .kp-steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .kp-node { flex: 1; min-width: 120px; background: var(--bg-sub); border: 1px solid var(--border-col); border-radius: 8px; padding: 8px; text-align: center; }
+  .kp-node .role { font-size: 0.7rem; color: var(--text-muted); font-weight: 700; }
+  .kp-node .pl { font-size: 0.98rem; font-weight: 800; margin: 2px 0; }
+  .kp-node .st { font-size: 0.73rem; }
+
+  .brief-box { background: var(--bg-sub); border-left: 4px solid var(--blue); border-radius: 8px; padding: 11px 13px; margin-bottom: 11px; font-size: 0.89rem; }
+  .m-card { background: var(--bg-sub); border: 1px solid var(--border-col); border-radius: 8px; padding: 10px; }
+  .m-card h4 { font-size: 0.86rem; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+  .m-card p { font-size: 0.81rem; color: var(--text-muted); }
+
+  .table-wrap { overflow-x: auto; max-height: 480px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.81rem; }
+  th { background: var(--bg-sub); color: var(--text-muted); font-weight: 700; text-align: left; padding: 9px 8px; position: sticky; top: 0; border-bottom: 1px solid var(--border-col); z-index: 2; white-space: nowrap; }
+  td { padding: 8px; border-bottom: 1px solid var(--border-col); }
+  tr:hover td { background: var(--bg-hover); }
+  tr.active-row td { background: var(--amber-bg) !important; font-weight: 700; }
+
+  .gate-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--bg-sub); padding: 11px; border-radius: 8px; border: 1px solid var(--border-col); }
+  .score-meter { font-size: 1.35rem; font-weight: 900; padding: 6px 14px; border-radius: 8px; }
+  .news-item { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; background: var(--bg-sub); padding: 8px 11px; border-radius: 8px; border: 1px solid var(--border-col); margin-top: 6px; font-size: 0.82rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand">
+      <h1>🧭 MASTER UNIFIED <span>KP + PLACIDUS 6th/11th CSL + NATAL + DASHA</span> TERMINAL (v5 Final)</h1>
+      <p>100% Client-Side Global UTC Engine • Auto-Solar Sunrise/Sunset, Auto-DST, Placidus 6th/11th CSL Flips, Vimshottari MD-AD-PD & CSV Logger</p>
+    </div>
+    <div class="controls" id="exchTabs"></div>
+    <div class="controls">
+      <button class="exch-btn" id="audioToggleBtn" onclick="toggleAudioAlert()">🔕 Sound Alert: OFF</button>
+      <select id="modeSelect" onchange="updateAll()">
+        <option value="LIVE">🔴 LIVE REAL-TIME (Auto 1s)</option>
+        <option value="SIM">🕒 SIMULATE DATE/TIME</option>
+      </select>
+      <input type="date" id="simDate" onchange="updateAll()" style="display:none;">
+      <input type="time" id="simTime" step="60" onchange="updateAll()" style="display:none;">
+      <button class="exch-btn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+  </div>
+
+  <!-- TOP LIVE RIBBON -->
+  <div class="ribbon" id="topRibbon"></div>
+
+  <!-- VIMSHOTTARI DASHA SYNC + TITHI + ECONOMIC NEWS LAGNA TRACKER -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">
+        <span>🔮 आपकी Live Vimshottari Dasha (MD–AD–PD) व 🌙 तिथि विवरण</span>
+        <span id="tithiTypeBadge" class="badge b-amber">--</span>
+      </div>
+      <div id="dashaDetailBox" class="brief-box" style="border-left-color: var(--accent); margin-bottom: 9px;"></div>
+      <div id="tithiDetailBox" class="brief-box" style="margin-bottom:0;"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>📰 Economic News & Lagna Impact Tracker (किस लग्न में न्यूज़ आ रही है)</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">Local Exchange Lagna at News Time</span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+        <input type="text" id="newsTitle" placeholder="News Name (e.g. US CPI / FOMC / NFP)" style="flex:1; min-width:160px;">
+        <input type="time" id="newsTimeIST" value="19:00">
+        <select id="newsImpact">
+          <option value="HIGH">🔴 High Impact</option>
+          <option value="MED">🟠 Medium Impact</option>
+        </select>
+        <button class="btn btn-gold" onclick="addNewsEvent()">+ Add News</button>
+      </div>
+      <div id="newsList"></div>
+    </div>
+  </div>
+
+  <!-- UNIFIED MASTER CONFLUENCE, RISK GATE & ONE-CLICK CSV TRADE JOURNAL -->
+  <div class="card">
+    <div class="card-title">
+      <span>🛡️ Master Unified Confluence Gate (0–10 Score) & One-Click Trade Journal Logger</span>
+      <div class="controls">
+        <span id="finalVerdictBadge" class="badge">--</span>
+        <button class="btn btn-green" onclick="logCurrentTrade()">➕ Log Trade</button>
+        <button class="btn btn-gold" onclick="exportJournalCSV()">📥 Export CSV (<span id="logCount">0</span>)</button>
+      </div>
+    </div>
+    <div class="gate-bar">
+      <div id="confluenceScoreBox" class="score-meter b-amber">Score: --/10</div>
+      <div style="flex:1; min-width:260px; font-size:0.86rem;" id="confluenceSummary">Calculating unified alignment...</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+        <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px; cursor:pointer;">
+          <input type="checkbox" id="paConfirm" onchange="updateAll()"> Chart OB/FVG + MSS Confirmed?
+        </label>
+        <select id="tradeDir" style="padding:5px 8px;">
+          <option value="BUY">BUY (Long)</option>
+          <option value="SELL">SELL (Short)</option>
+        </select>
+        <input type="number" id="accBal" value="10000" style="width:90px;" title="Account Balance ($)" onchange="updateAll()">
+        <input type="number" id="riskPct" value="0.5" step="0.1" style="width:60px;" title="Risk %" onchange="updateAll()">
+        <input type="number" id="slPts" value="5.0" step="0.5" style="width:60px;" title="SL in Gold ($)" onchange="updateAll()">
+        <span id="lotCalcBadge" class="badge b-green">Lot: --</span>
+      </div>
+    </div>
+    <div id="journalPreview" style="margin-top:8px; font-size:0.79rem; color:var(--text-muted);"></div>
+  </div>
+
+  <!-- HORA X-RAY + HINDI MARKET & NATAL KUNDLI BRIEF -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">
+        <span>🧬 चालू होरा स्वामी, NL-SL-SSL एक्स-रे व Natal Kundli Alignment</span>
+        <span id="horaTimer" class="badge b-amber">--:--</span>
+      </div>
+      <div class="xray-grid" id="horaXrayGrid"></div>
+      <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-top:6px;">
+        3-Layer KP Sub-Lord चेन (होरा स्वामी के NL, SL, SSL की स्थिति):
+      </div>
+      <div class="kp-steps" id="kpChainSteps"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>🔥 लाइव मार्केट, आपकी कुंडली (Kark Lagna / Mrigashira) व कमोडिटी विश्लेषण</span>
+        <span id="trinityBadge" class="badge">--</span>
+      </div>
+      <div class="brief-box" id="hindiBrief"></div>
+      <div class="grid-3" id="marketImpactCards"></div>
+    </div>
+  </div>
+
+  <!-- PLANETARY POSITIONS + 24 HORA TABLE -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">
+        <span>🪐 लाइव ग्रह स्थिति (Rashi, Dignity, Vakri, Degree, NL-SL-SSL व Global Aspects)</span>
+        <span id="ayanDisplay" style="font-size:0.76rem; color:var(--text-muted);">KP Ayanamsa</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Body</th>
+              <th>Degree</th>
+              <th>Rashi (Tattva)</th>
+              <th>Nakshatra (P)</th>
+              <th>NL-SL-SSL</th>
+              <th>Avastha</th>
+              <th>Status / Flags</th>
+            </tr>
+          </thead>
+          <tbody id="planetTableBody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px; font-size:0.8rem; background:var(--bg-sub); padding:9px; border-radius:8px; border:1px solid var(--border-col);">
+        <strong>🔭 Active Global Planetary Aspects (Exact Orbs ≤ 2.5°):</strong>
+        <div id="aspectList" style="margin-top:4px; color:var(--accent);">Scanning...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>⏰ 24 होरा चक्र (Exchange Local & IST — Auto Sunrise/Sunset & DST)</span>
+        <span id="vareshLabel" style="font-size:0.8rem; font-weight:700;"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>H#</th>
+              <th>Local Window</th>
+              <th>IST Window</th>
+              <th>Lord</th>
+              <th>Varesh Rel</th>
+              <th>Natal + Dasha Verdict</th>
+            </tr>
+          </thead>
+          <tbody id="horaTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOON SUB-LORD SHIFT & SBC TARA BALA TIMELINE -->
+  <div class="card">
+    <div class="card-title">
+      <span>🌕 Live Moon Sub-Lord Shifts, SBC Tara Bala & Intraday Turn Bias (IST)</span>
+      <span id="moonBannerText" style="font-size:0.8rem; color:var(--accent); font-weight:700;"></span>
+    </div>
+    <div class="table-wrap" style="max-height:320px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Exact Time (IST)</th>
+            <th>Event Type</th>
+            <th>Moon Nakshatra & Sub-Lord Shift</th>
+            <th>SBC Tara Bala (From Mrigashira)</th>
+            <th>Directional Bias</th>
+            <th>Gold (XAUUSD) Action Note</th>
+          </tr>
+        </thead>
+        <tbody id="moonShiftBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- UPGRADED PLACIDUS 6th CSL vs 11th CSL 15-MINUTE SESSION FLIP MATRIX -->
+  <div class="card">
+    <div class="card-title">
+      <span>📊 Live Placidus 6th CSL vs 11th CSL 15-Minute Flip Matrix (Exact Gold KP Report Engine)</span>
+      <div class="controls">
+        <select id="flipSessionSelect" onchange="manualSessionChange()">
+          <option value="MUMBAI">🇮🇳 Mumbai NSE Session (09:15 - 15:30 IST)</option>
+          <option value="TOKYO">🇯🇵 Tokyo / Asian Session (05:30 - 13:30 IST)</option>
+          <option value="LONDON" selected>🇬🇧 London Session (13:30 - 18:30 IST)</option>
+          <option value="NEWYORK">🇺🇸 New York Session (18:30 - 01:30 IST)</option>
+        </select>
+        <label style="font-size:0.78rem; display:flex; align-items:center; gap:4px; cursor:pointer;">
+          <input type="checkbox" id="hideNoiseChk" onchange="updateAll()"> Hide Weak Noise (|Score| &lt; 4)
+        </label>
+      </div>
+    </div>
+    <div id="majorFlipsBanner" class="brief-box" style="border-left-color: var(--accent); margin-bottom: 10px; font-size:0.84rem;"></div>
+    <div class="table-wrap" style="max-height:460px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Time (IST)</th>
+            <th>Net Score</th>
+            <th>Bull / Bear %</th>
+            <th>Lagna Sub</th>
+            <th>6th CSL</th>
+            <th>11th CSL</th>
+            <th>Moon Sub</th>
+            <th>Bias / Exact Flip Status</th>
+          </tr>
+        </thead>
+        <tbody id="flipTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ================= CORE CONSTANTS & IANA DST-SAFE EXCHANGES =================
+const EXCHANGES = {
+  Mumbai_NSE: { name: "🇮🇳 Mumbai NSE", lat: 19.0760, lon: 72.8777, tz: "Asia/Kolkata", open: [9, 15], close: [15, 30], natalMatch: "Moderate (Equity/MCX)", sessKey: "MUMBAI" },
+  Tokyo_TSE:  { name: "🇯🇵 Tokyo TSE",  lat: 35.6762, lon: 139.6503, tz: "Asia/Tokyo", open: [9, 0], close: [15, 0], natalMatch: "Moderate (Accumulation)", sessKey: "TOKYO" },
+  London_LSE: { name: "🇬🇧 London LBMA",lat: 51.5074, lon: -0.1278, tz: "Europe/London", open: [8, 0], close: [16, 30], natalMatch: "HIGHEST MATCH (Best Resonance)", sessKey: "LONDON" },
+  New_York:   { name: "🇺🇸 NY COMEX",   lat: 40.7128, lon: -74.0060, tz: "America/New_York", open: [8, 20], close: [17, 0], natalMatch: "High Vol (Selective Hours)", sessKey: "NEWYORK" }
+};
+
+let selectedExch = "London_LSE";
+let audioEnabled = false;
+let lastChimeEpoch = 0;
+let tradeLogs = JSON.parse(localStorage.getItem("kp_trade_logs_v5") || "[]");
+let latestSnapshot = {};
+
+let newsEvents = [
+  { title: "London-NY Overlap Liquidity Window", timeIST: "18:30", impact: "HIGH" },
+  { title: "US Macro / Treasury Data Slot", timeIST: "19:00", impact: "HIGH" },
+  { title: "COMEX London Fix / PM Volatility", timeIST: "20:30", impact: "MED" }
+];
+
+const PLANET_FULL = {
+  Su: "सूर्य (Sun)", Mo: "चंद्रमा (Moon)", Ma: "मंगल (Mars)", Me: "बुध (Mercury)",
+  Ju: "गुरु (Jupiter)", Ve: "शुक्र (Venus)", Sa: "शनि (Saturn)", Ra: "राहु (Rahu)", Ke: "केतु (Ketu)", As: "लग्न (Asc)"
+};
+const PLANET_NAME_EN = {
+  Su: "Sun", Mo: "Moon", Ma: "Mars", Me: "Mercury", Ju: "Jupiter", Ve: "Venus", Sa: "Saturn", Ra: "Rahu", Ke: "Ketu"
+};
+
+const RASHIS = [
+  { code: "Ar", hi: "मेष (Aries)", lord: "Ma", tattva: "अग्नि (Fiery)" },
+  { code: "Ta", hi: "वृषभ (Taurus)", lord: "Ve", tattva: "पृथ्वी (Earthy)" },
+  { code: "Ge", hi: "मिथुन (Gemini)", lord: "Me", tattva: "वायु (Airy)" },
+  { code: "Cn", hi: "कर्क (Cancer)", lord: "Mo", tattva: "जल (Watery)" },
+  { code: "Le", hi: "सिंह (Leo)", lord: "Su", tattva: "अग्नि (Fiery)" },
+  { code: "Vi", hi: "कन्या (Virgo)", lord: "Me", tattva: "पृथ्वी (Earthy)" },
+  { code: "Li", hi: "तुला (Libra)", lord: "Ve", tattva: "वायु (Airy)" },
+  { code: "Sc", hi: "वृश्चिक (Scorpio)", lord: "Ma", tattva: "जल (Watery)" },
+  { code: "Sg", hi: "धनु (Sagittarius)", lord: "Ju", tattva: "अग्नि (Fiery)" },
+  { code: "Cp", hi: "मकर (Capricorn)", lord: "Sa", tattva: "पृथ्वी (Earthy)" },
+  { code: "Aq", hi: "कुंभ (Aquarius)", lord: "Sa", tattva: "वायु (Airy)" },
+  { code: "Pi", hi: "मीन (Pisces)", lord: "Ju", tattva: "जल (Watery)" }
+];
+
+const NAKSHATRAS = [
+  "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
+  "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
+  "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha",
+  "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishta",
+  "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+];
+
+const DASHA_LORDS = ["Ke", "Ve", "Su", "Mo", "Ma", "Ra", "Ju", "Sa", "Me"];
+const DASHA_YEARS = [7, 20, 6, 10, 7, 18, 16, 19, 17];
+const HORA_SEQ = ["Su", "Ve", "Me", "Mo", "Sa", "Ju", "Ma"];
+const WEEKDAY_LORDS = ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa"];
+const TITHI_LORDS = ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra"];
+
+const EXALT = { Su: "Ar", Mo: "Ta", Ma: "Cp", Me: "Vi", Ju: "Cn", Ve: "Pi", Sa: "Li", Ra: "Ta", Ke: "Sc" };
+const DEBIL = { Su: "Li", Mo: "Sc", Ma: "Cn", Me: "Pi", Ju: "Cp", Ve: "Vi", Sa: "Ar", Ra: "Sc", Ke: "Ta" };
+const COMBUST = { Mo: 12, Ma: 17, Me: 14, Ju: 11, Ve: 10, Sa: 15 };
+
+const MAITRI = {
+  Su: { f: ["Mo", "Ma", "Ju"], e: ["Ve", "Sa"] },
+  Mo: { f: ["Su", "Me"], e: [] },
+  Ma: { f: ["Su", "Mo", "Ju"], e: ["Me"] },
+  Me: { f: ["Su", "Ve"], e: ["Mo"] },
+  Ju: { f: ["Su", "Mo", "Ma"], e: ["Me", "Ve"] },
+  Ve: { f: ["Me", "Sa"], e: ["Su", "Mo"] },
+  Sa: { f: ["Me", "Ve"], e: ["Su", "Mo", "Ma"] }
+};
+
+const RAHU_PART = [7, 1, 6, 4, 5, 3, 2];
+const GULIKA_PART = [6, 5, 4, 3, 2, 1, 0];
+
+const USER_NATAL_NAK_IDX = 4; // Mrigashira
+const TARA_NAMES = [
+  { name: "Janma (1)", good: true, desc: "Self/Momentum — Strong personal alignment" },
+  { name: "Sampat (2)", good: true, desc: "Wealth/Gains — High profit probability" },
+  { name: "Vipat (3)", good: false, desc: "Danger/Trap — False breakouts & SL hunts" },
+  { name: "Kshema (4)", good: true, desc: "Prosperity/Safe — Smooth trend continuation" },
+  { name: "Pratyak (5)", good: false, desc: "Obstacle/Reversal — Choppy price action" },
+  { name: "Sadhaka (6)", good: true, desc: "Achievement — Target hit probability high" },
+  { name: "Naidhana (7)", good: false, desc: "Destruction/Stop-Loss — Strict No-Trade / Small Size" },
+  { name: "Mitra (8)", good: true, desc: "Friendly — Supportive technical levels" },
+  { name: "Parama Mitra (9)", good: true, desc: "Best Friend — A+ execution window" }
+];
+
+const TITHI_NAMES = [
+  "Pratipada", "Dwitiya", "Tritiya", "Chaturthi", "Panchami",
+  "Shashthi", "Saptami", "Ashtami", "Navami", "Dashami",
+  "Ekadashi", "Dwadashi", "Trayodashi", "Chaturdashi", "Purnima / Amavasya"
+];
+
+const TITHI_CLASSES = [
+  { type: "नंदा तिथि (Nanda - Joy/Momentum)", impact: "तेज शुरुआत और ट्रेंड फॉलो करने के लिए शुभ; ब्रेकआउट टिकने की संभावना अधिक।", bias: +3 },
+  { type: "भद्रा तिथि (Bhadra - Stability/Range)", impact: "बाजार शुरुआती स्पाइक के बाद एक रेंज में स्थिर (Consolidate) होना पसंद करता है।", bias: +1 },
+  { type: "जया तिथि (Jaya - Victory/Breakout)", impact: "मजबूत एकतरफा रैली और बड़े टारगेट मिलने के लिए सर्वश्रेष्ठ तिथि।", bias: +4 },
+  { type: "रिक्ता तिथि (Rikta - Empty/Trap)", impact: "सावधान! लिक्विडिटी स्वीप, फेक ब्रेकआउट और स्टॉप-लॉस हंटिंग का खतरा सबसे अधिक।", bias: -4 },
+  { type: "पूर्णा तिथि (Purna - Completion/Reversal)", impact: "अत्यधिक वोलैटिलिटी और बड़े ट्रेंड रिवर्सल (Exhaustion) की तिथि।", bias: +2 }
+];
+
+const RAD = Math.PI / 180;
+const DEG = 180 / Math.PI;
+const norm360 = d => ((d % 360) + 360) % 360;
+
+// ================= AUDIO CHIME ENGINE =================
+function playChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.18);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.5);
+  } catch (e) {}
+}
+
+function toggleAudioAlert() {
+  audioEnabled = !audioEnabled;
+  const btn = document.getElementById("audioToggleBtn");
+  btn.innerText = audioEnabled ? "🔔 Sound Alert: ON" : "🔕 Sound Alert: OFF";
+  if (audioEnabled) playChime();
+}
+
+// ================= ASTRONOMICAL & PLACIDUS CUSP ENGINE =================
+function getJulianDay(date) {
+  return date.getTime() / 86400000 + 2440587.5;
+}
+
+function getKPAyanamsa(jd) {
+  const T = (jd - 2451545.0) / 36525.0;
+  return 23.8570923 + 1.3969713 * T;
+}
+
+function solveOrbit(el) {
+  const M = norm360(el.M);
+  let E = M + el.e * DEG * Math.sin(M * RAD) * (1 + el.e * Math.cos(M * RAD));
+  for (let k = 0; k < 5; k++) {
+    E = E - (E - el.e * DEG * Math.sin(E * RAD) - M) / (1 - el.e * Math.cos(E * RAD));
+  }
+  const x = el.a * (Math.cos(E * RAD) - el.e);
+  const y = el.a * Math.sqrt(1 - el.e * el.e) * Math.sin(E * RAD);
+  const r = Math.sqrt(x * x + y * y);
+  const v = Math.atan2(y, x) * DEG;
+  const N = el.N * RAD, vw = (v + el.w) * RAD, inc = el.i * RAD;
+  const xh = r * (Math.cos(N) * Math.cos(vw) - Math.sin(N) * Math.sin(vw) * Math.cos(inc));
+  const yh = r * (Math.sin(N) * Math.cos(vw) + Math.cos(N) * Math.sin(vw) * Math.cos(inc));
+  return { xh, yh, r, v };
+}
+
+function calcSiderealPlanets(date) {
+  const jd = getJulianDay(date);
+  const d = jd - 2451543.5;
+  const ayan = getKPAyanamsa(jd);
+
+  const wSun = 282.9404 + 4.70935e-5 * d;
+  const eSun = 0.016709 - 1.151e-9 * d;
+  const MSun = norm360(356.0470 + 0.9856002585 * d);
+  const ESun = MSun + eSun * DEG * Math.sin(MSun * RAD) * (1 + eSun * Math.cos(MSun * RAD));
+  const xv = Math.cos(ESun * RAD) - eSun;
+  const yv = Math.sqrt(1 - eSun * eSun) * Math.sin(ESun * RAD);
+  const vSun = Math.atan2(yv, xv) * DEG;
+  const sunTrop = norm360(vSun + wSun);
+  const rSun = Math.sqrt(xv * xv + yv * yv);
+  const xs = rSun * Math.cos(sunTrop * RAD);
+  const ys = rSun * Math.sin(sunTrop * RAD);
+
+  const lons = { Su: norm360(sunTrop - ayan) };
+
+  const mEl = { N: 125.1228 - 0.0529538083 * d, i: 5.1454, w: 318.0634 + 0.1643573223 * d, a: 60.2666, e: 0.054900, M: 115.3654 + 13.0649929509 * d };
+  const mH = solveOrbit(mEl);
+  const Mm = norm360(mEl.M);
+  const Lm = norm360(mEl.N + mEl.w + mH.v);
+  const D = norm360(Lm - sunTrop);
+  const F = norm360(Lm - mEl.N);
+  const moonTrop = Lm
+    - 1.274 * Math.sin((Mm - 2 * D) * RAD)
+    + 0.658 * Math.sin(2 * D * RAD)
+    - 0.186 * Math.sin(MSun * RAD)
+    - 0.059 * Math.sin((2 * Mm - 2 * D) * RAD)
+    - 0.057 * Math.sin((Mm - 2 * D + MSun) * RAD)
+    + 0.053 * Math.sin((Mm + 2 * D) * RAD)
+    + 0.046 * Math.sin((2 * D - MSun) * RAD)
+    + 0.041 * Math.sin((Mm - MSun) * RAD)
+    - 0.035 * Math.sin(D * RAD)
+    - 0.031 * Math.sin((Mm + MSun) * RAD)
+    - 0.015 * Math.sin((2 * F - 2 * D) * RAD);
+  lons.Mo = norm360(moonTrop - ayan);
+
+  const others = {
+    Me: { N: 48.3313 + 3.24587e-5 * d, i: 7.0047 + 5.00e-8 * d, w: 29.1241 + 1.01444e-5 * d, a: 0.387098, e: 0.205635 + 5.59e-10 * d, M: 168.6562 + 4.0923344368 * d },
+    Ve: { N: 76.6799 + 2.46590e-5 * d, i: 3.3946 + 2.75e-8 * d, w: 54.8910 + 1.38374e-5 * d, a: 0.723330, e: 0.006773 - 1.302e-9 * d, M: 48.0052 + 1.6021302244 * d },
+    Ma: { N: 49.5574 + 2.11081e-5 * d, i: 1.8497 - 1.78e-8 * d, w: 286.5016 + 2.92961e-5 * d, a: 1.523688, e: 0.093405 + 2.516e-9 * d, M: 18.6021 + 0.5240207766 * d },
+    Ju: { N: 100.4542 + 2.76854e-5 * d, i: 1.3030 - 1.557e-7 * d, w: 273.8777 + 1.64505e-5 * d, a: 5.20256, e: 0.048498 + 4.469e-9 * d, M: 19.8950 + 0.0830853001 * d },
+    Sa: { N: 113.6634 + 2.38980e-5 * d, i: 2.4886 - 1.081e-7 * d, w: 339.3939 + 2.97661e-5 * d, a: 9.55475, e: 0.055546 - 9.499e-9 * d, M: 316.9670 + 0.0334442282 * d }
+  };
+
+  Object.keys(others).forEach(p => {
+    const h = solveOrbit(others[p]);
+    let trop = Math.atan2(h.yh + ys, h.xh + xs) * DEG;
+    if (p === "Ju" || p === "Sa") {
+      const Mj = norm360(others.Ju.M) * RAD;
+      const Ms = norm360(others.Sa.M) * RAD;
+      if (p === "Ju") trop += -0.332 * Math.sin(2 * Mj - 5 * Ms - 67.6 * RAD) - 0.056 * Math.sin(2 * Mj - 2 * Ms + 21 * RAD);
+      if (p === "Sa") trop += 0.812 * Math.sin(2 * Mj - 5 * Ms - 67.6 * RAD) - 0.229 * Math.cos(2 * Mj - 4 * Ms - 2 * RAD);
+    }
+    lons[p] = norm360(trop - ayan);
+  });
+
+  const raTrop = norm360(125.1228 - 0.0529538083 * d);
+  lons.Ra = norm360(raTrop - ayan);
+  lons.Ke = norm360(lons.Ra + 180);
+  lons._ayan = ayan;
+  return lons;
+}
+
+// Exact Placidus Sidereal House Cusps (1..12) for 1st, 6th, and 11th Cusp Sub-Lords
+function calcPlacidusCusps(date, lat, lon) {
+  const jd = getJulianDay(date);
+  const T = (jd - 2451545.0) / 36525.0;
+  const ayan = getKPAyanamsa(jd);
+  const gmst = norm360(280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * T * T);
+  const ramc = norm360(gmst + lon);
+  const eps = (23.439291 - 0.0130042 * T) * RAD;
+  const latR = lat * RAD;
+
+  // MC (10th) & Ascendant (1st)
+  const mcTrop = norm360(Math.atan2(Math.sin(ramc * RAD), Math.cos(ramc * RAD) * Math.cos(eps)) * DEG);
+  const ascTrop = norm360(Math.atan2(Math.cos(ramc * RAD), -Math.sin(ramc * RAD) * Math.cos(eps) - Math.tan(latR) * Math.sin(eps)) * DEG);
+
+  // Placidus iterative solver for Houses 11, 12, 2, 3 (and opposite houses 5, 6, 8, 9)
+  function solvePlacidusHouse(f, isAboveHorizon) {
+    let ra = norm360(ramc + (isAboveHorizon ? f * 90 : 180 - f * 90));
+    for (let iter = 0; iter < 12; iter++) {
+      const lonGuess = Math.atan2(Math.sin(ra * RAD), Math.cos(ra * RAD) * Math.cos(eps));
+      const sinDec = Math.sin(eps) * Math.sin(lonGuess);
+      const tanDec = sinDec / Math.sqrt(Math.max(1e-9, 1 - sinDec * sinDec));
+      const ad = Math.asin(Math.max(-0.999, Math.min(0.999, Math.tan(latR) * tanDec))) * DEG;
+      ra = isAboveHorizon ? norm360(ramc + f * (90 + ad)) : norm360(ramc + 180 - f * (90 - ad));
+    }
+    return norm360(Math.atan2(Math.sin(ra * RAD), Math.cos(ra * RAD) * Math.cos(eps)) * DEG);
+  }
+
+  const h11Trop = solvePlacidusHouse(1 / 3, true);
+  const h12Trop = solvePlacidusHouse(2 / 3, true);
+  const h2Trop  = solvePlacidusHouse(2 / 3, false);
+  const h3Trop  = solvePlacidusHouse(1 / 3, false);
+
+  const cusps = {
+    1:  norm360(ascTrop - ayan),
+    2:  norm360(h2Trop - ayan),
+    3:  norm360(h3Trop - ayan),
+    4:  norm360(mcTrop + 180 - ayan),
+    5:  norm360(h11Trop + 180 - ayan),
+    6:  norm360(h12Trop + 180 - ayan),
+    7:  norm360(ascTrop + 180 - ayan),
+    8:  norm360(h2Trop + 180 - ayan),
+    9:  norm360(h3Trop + 180 - ayan),
+    10: norm360(mcTrop - ayan),
+    11: norm360(h11Trop - ayan),
+    12: norm360(h12Trop - ayan)
+  };
+  return cusps;
+}
+
+function calcAscendant(date, lat, lon) {
+  return calcPlacidusCusps(date, lat, lon)[1];
+}
+
+// Compute KP Planet Significators (Houses 1..12 signified by each planet via its Nakshatra Lord & House Occupancy)
+function computeKPSignificators(lons, cusps) {
+  const cuspArr = [cusps[1], cusps[2], cusps[3], cusps[4], cusps[5], cusps[6], cusps[7], cusps[8], cusps[9], cusps[10], cusps[11], cusps[12]];
+  function getHouseOfDeg(deg) {
+    for (let h = 0; h < 12; h++) {
+      const start = cuspArr[h];
+      const end = cuspArr[(h + 1) % 12];
+      if (start < end) {
+        if (deg >= start && deg < end) return h + 1;
+      } else {
+        if (deg >= start || deg < end) return h + 1;
+      }
+    }
+    return 1;
+  }
+
+  const pKeys = ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra", "Ke"];
+  const occHouse = {};
+  const ownedHouses = { Su: [], Mo: [], Ma: [], Me: [], Ju: [], Ve: [], Sa: [], Ra: [], Ke: [] };
+
+  pKeys.forEach(p => { occHouse[p] = getHouseOfDeg(lons[p]); });
+  for (let h = 1; h <= 12; h++) {
+    const rLord = RASHIS[Math.floor(cusps[h] / 30)].lord;
+    ownedHouses[rLord].push(h);
+  }
+  // Rahu/Ketu represent sign lord & conjoined planets
+  ["Ra", "Ke"].forEach(node => {
+    const signLord = RASHIS[Math.floor(lons[node] / 30)].lord;
+    ownedHouses[node] = [...ownedHouses[signLord]];
+  });
+
+  const sigs = {};
+  pKeys.forEach(p => {
+    const nl = getKPDetails(lons[p]).nl;
+    const set = new Set([occHouse[nl], ...ownedHouses[nl], occHouse[p], ...ownedHouses[p]]);
+    sigs[p] = Array.from(set);
+  });
+  return sigs;
+}
+
+// ================= VIMSHOTTARI DASHA CALCULATOR (08 AUG 1999, 20:13 IST) =================
+const BIRTH_UTC = new Date(Date.UTC(1999, 7, 8, 14, 43, 0));
+const BIRTH_MOON_DEG = calcSiderealPlanets(BIRTH_UTC).Mo;
+
+function calcVimshottariDasha(targetDate) {
+  const nakSpan = 360 / 27;
+  const nakIdx = Math.floor(BIRTH_MOON_DEG / nakSpan);
+  const startLordIdx = nakIdx % 9;
+  const fracElapsed = (BIRTH_MOON_DEG - nakIdx * nakSpan) / nakSpan;
+  const YEAR_MS = 365.2425 * 86400000;
+
+  let cursor = BIRTH_UTC.getTime() - fracElapsed * DASHA_YEARS[startLordIdx] * YEAR_MS;
+  const tMs = targetDate.getTime();
+
+  let mdLord = "Sa", adLord = "Sa", pdLord = "Sa";
+  let mdEnd = new Date(), adEnd = new Date(), pdEnd = new Date();
+
+  for (let i = 0; i < 18; i++) {
+    const mIdx = (startLordIdx + i) % 9;
+    const mDur = DASHA_YEARS[mIdx] * YEAR_MS;
+    if (tMs >= cursor && tMs < cursor + mDur) {
+      mdLord = DASHA_LORDS[mIdx];
+      mdEnd = new Date(cursor + mDur);
+      let adCur = cursor;
+      for (let j = 0; j < 9; j++) {
+        const aIdx = (mIdx + j) % 9;
+        const aDur = (DASHA_YEARS[aIdx] / 120) * mDur;
+        if (tMs >= adCur && tMs < adCur + aDur) {
+          adLord = DASHA_LORDS[aIdx];
+          adEnd = new Date(adCur + aDur);
+          let pdCur = adCur;
+          for (let k = 0; k < 9; k++) {
+            const pIdx = (aIdx + k) % 9;
+            const pDur = (DASHA_YEARS[pIdx] / 120) * aDur;
+            if (tMs >= pdCur && tMs < pdCur + pDur) {
+              pdLord = DASHA_LORDS[pIdx];
+              pdEnd = new Date(pdCur + pDur);
+              break;
+            }
+            pdCur += pDur;
+          }
+          break;
+        }
+        adCur += aDur;
+      }
+      break;
+    }
+    cursor += mDur;
+  }
+  return { mdLord, adLord, pdLord, mdEnd, adEnd, pdEnd };
+}
+
+function getKPDetails(deg) {
+  deg = norm360(deg);
+  const rIdx = Math.floor(deg / 30);
+  const rashi = RASHIS[rIdx];
+  const degInRashi = deg % 30;
+  const nakSpan = 360 / 27;
+  const nakIdx = Math.floor(deg / nakSpan);
+  const nlIdx = nakIdx % 9;
+  const nl = DASHA_LORDS[nlIdx];
+  const remNak = deg - nakIdx * nakSpan;
+  const pada = Math.floor(remNak / (nakSpan / 4)) + 1;
+
+  let curr = 0, sl = nl, slIdx = nlIdx, slStart = 0, slSpan = nakSpan;
+  for (let i = 0; i < 9; i++) {
+    const idx = (nlIdx + i) % 9;
+    const span = (DASHA_YEARS[idx] / 120) * nakSpan;
+    if (remNak >= curr && remNak < curr + span) {
+      sl = DASHA_LORDS[idx]; slIdx = idx; slStart = curr; slSpan = span; break;
+    }
+    curr += span;
+  }
+
+  const remSl = remNak - slStart;
+  let currSsl = 0, ssl = sl;
+  for (let j = 0; j < 9; j++) {
+    const idx2 = (slIdx + j) % 9;
+    const span2 = (DASHA_YEARS[idx2] / 120) * slSpan;
+    if (remSl >= currSsl && remSl < currSsl + span2) {
+      ssl = DASHA_LORDS[idx2]; break;
+    }
+    currSsl += span2;
+  }
+
+  const avIdx = Math.floor(degInRashi / 6);
+  const finalAvIdx = ((rIdx + 1) % 2 === 0) ? (4 - avIdx) : avIdx;
+  const avastha = ["Baal (25%)", "Kumar (50%)", "Yuva (100%)", "Vriddha (20%)", "Mrit (0%)"][Math.max(0, Math.min(4, finalAvIdx))];
+
+  return { deg, rIdx, rashi, degInRashi, isSandhi: degInRashi >= 29 || degInRashi <= 1, nakIdx, nak: NAKSHATRAS[nakIdx], pada, nl, sl, ssl, avastha };
+}
+
+function fmtDMS(deg) {
+  const d = Math.floor(deg);
+  const m = Math.floor((deg - d) * 60);
+  const s = Math.floor((((deg - d) * 60) - m) * 60);
+  return `${String(d).padStart(2, '0')}°${String(m).padStart(2, '0')}'${String(s).padStart(2, '0')}"`;
+}
+
+function getSunriseSunsetUTC(dateUTC, lat, lon) {
+  const jd = getJulianDay(dateUTC);
+  const n = Math.round(jd - 2451545.0 - 0.0009 - (-lon / 360));
+  const Jstar = 2451545.0 + 0.0009 + (-lon / 360) + n;
+  const M = norm360(357.5291 + 0.98560028 * (Jstar - 2451545.0));
+  const C = 1.9148 * Math.sin(M * RAD) + 0.0200 * Math.sin(2 * M * RAD) + 0.0003 * Math.sin(3 * M * RAD);
+  const lam = norm360(M + C + 180 + 102.9372);
+  const Jtransit = Jstar + 0.0053 * Math.sin(M * RAD) - 0.0069 * Math.sin(2 * lam * RAD) - 0.0012;
+  const sinDec = Math.sin(lam * RAD) * Math.sin(23.44 * RAD);
+  const cosDec = Math.cos(Math.asin(sinDec));
+  const cosOmega = (Math.sin(-0.5667 * RAD) - Math.sin(lat * RAD) * sinDec) / (Math.cos(lat * RAD) * cosDec);
+  const omega = Math.acos(Math.max(-1, Math.min(1, cosOmega))) * DEG;
+  return {
+    sr: new Date((Jtransit - omega / 360 - 2440587.5) * 86400000),
+    ss: new Date((Jtransit + omega / 360 - 2440587.5) * 86400000)
+  };
+}
+
+function getLocalParts(date, tz) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, weekday: "short"
+  }).formatToParts(date);
+  const map = {};
+  parts.forEach(p => map[p.type] = p.value);
+  const wdMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  return {
+    year: +map.year, month: +map.month, day: +map.day,
+    hour: (+map.hour) % 24, minute: +map.minute, second: +map.second,
+    weekday: wdMap[map.weekday] !== undefined ? wdMap[map.weekday] : date.getUTCDay()
+  };
+}
+
+function fmtTime(date, tz, withSec = false) {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: tz, hour: "2-digit", minute: "2-digit",
+    ...(withSec ? { second: "2-digit" } : {}), hour12: true
+  }).format(date);
+}
+
+function fmtDateShort(date) {
+  return new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "2-digit", month: "short", year: "numeric" }).format(date);
+}
+
+function calcTithiDetails(now, lonsNow) {
+  const diff = norm360(lonsNow.Mo - lonsNow.Su);
+  const tithiIdx0 = Math.floor(diff / 12);
+  const tithiNum = tithiIdx0 + 1;
+  const paksha = tithiNum <= 15 ? "शुक्ल पक्ष (Shukla)" : "कृष्ण पक्ष (Krishna)";
+  const nameIdx = tithiIdx0 % 15;
+  let tName = TITHI_NAMES[nameIdx];
+  if (tithiNum === 15) tName = "पूर्णिमा (Purnima)";
+  if (tithiNum === 30) tName = "अमावस्या (Amavasya)";
+
+  const classObj = TITHI_CLASSES[nameIdx % 5];
+  const tLord = TITHI_LORDS[tithiIdx0 % 8];
+
+  const targetDeg = (tithiIdx0 + 1) * 12;
+  let lo = now.getTime();
+  let hi = lo + 30 * 3600000;
+  for (let i = 0; i < 22; i++) {
+    const mid = (lo + hi) / 2;
+    const lMid = calcSiderealPlanets(new Date(mid));
+    const dMid = norm360(lMid.Mo - lMid.Su);
+    let delta = targetDeg - dMid;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    if (delta > 0) lo = mid; else hi = mid;
+  }
+  const endTime = new Date((lo + hi) / 2);
+  const nextIdx0 = (tithiIdx0 + 1) % 30;
+  let nextName = TITHI_NAMES[nextIdx0 % 15];
+  if (nextIdx0 + 1 === 15) nextName = "पूर्णिमा (Purnima)";
+  if (nextIdx0 + 1 === 30) nextName = "अमावस्या (Amavasya)";
+  const nextClass = TITHI_CLASSES[(nextIdx0 % 15) % 5];
+
+  return {
+    tithiNum, paksha, tName, classObj, tLord,
+    pctDone: ((diff % 12) / 12 * 100).toFixed(1),
+    endTime, nextName, nextClass
+  };
+}
+
+function evalNatalHora(pCode, dashaObj) {
+  let dashaTag = "";
+  if (dashaObj) {
+    if (pCode === dashaObj.mdLord) dashaTag = " 🔥[MD LORD]";
+    else if (pCode === dashaObj.adLord) dashaTag = " ⚡[AD LORD]";
+    else if (pCode === dashaObj.pdLord) dashaTag = " ✨[PD LORD]";
+  }
+  if (pCode === "Mo") return { code: "TRADE", label: `✅ A+ Lagna Lord${dashaTag}`, note: "Kark Lagna Swami Moon सक्रिय — सबसे साफ़ ट्रेंड।" };
+  if (pCode === "Ju") return { code: "TRADE", label: `✅ A+ Rajyog Lead${dashaTag}`, note: "9th भाग्येश Guru सक्रिय — बड़े टारगेट की उच्च संभावना।" };
+  if (pCode === "Ma") return { code: "TRADE", label: `✅ A+ Janma Nak Lord${dashaTag}`, note: "Mrigashira स्वामी Mars सक्रिय — तेज़ ब्रेकआउट मोमेंटम।" };
+  if (pCode === "Su") return { code: "TRADE", label: `✅ Gold Karak (1st H)${dashaTag}`, note: "Gold का प्राकृतिक कारक Sun 1st हाउस में — डायरेक्शनल मूव।" };
+  if (pCode === "Sa") return { code: "TRAP",  label: `🟣 Rajyog (Wait Sweep)${dashaTag}`, note: "Guru-Shani राजयोग (11th लाभ), पर 8th लॉर्ड होने से पहले SL Hunt होगा।" };
+  if (pCode === "Ve") return { code: "WARN",  label: `⚖️ Slow / Selective${dashaTag}`, note: "11th लॉर्ड Venus — चाल धीमी या रिट्रेसमेंट वाली रहेगी।" };
+  if (pCode === "Me") return { code: "AVOID", label: `🚫 12th Lord Chop${dashaTag}`, note: "12th व्ययेश Budh 1st हाउस में — Whipsaw/Fakeout से बचें।" };
+  return { code: "AVOID", label: `🚫 Node Pressure${dashaTag}`, note: "अस्पष्ट दिशा — ट्रेड टालें।" };
+}
+
+function getVareshRel(dayLord, horaLord) {
+  if (dayLord === horaLord) return { label: "Swastha (स्वयं)", type: "b-green", score: 2 };
+  const m = MAITRI[dayLord];
+  if (m && m.f.includes(horaLord)) return { label: "Mitra (मित्र)", type: "b-green", score: 1.5 };
+  if (m && m.e.includes(horaLord)) return { label: "Shatru (शत्रु)", type: "b-red", score: -1.5 };
+  return { label: "Sam (तटस्थ)", type: "b-amber", score: 0.5 };
+}
+
+function calcGlobalAspects(lonsNow) {
+  const keys = ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra"];
+  const aspectDefs = [
+    { deg: 0, name: "Conjunction (युति 0°)", type: "b-amber" },
+    { deg: 60, name: "Sextile (60°)", type: "b-green" },
+    { deg: 90, name: "Square (केंद्र 90°)", type: "b-red" },
+    { deg: 120, name: "Trine (त्रिकोण 120°)", type: "b-green" },
+    { deg: 180, name: "Opposition (प्रतियुति 180°)", type: "b-red" }
+  ];
+  const found = [];
+  for (let i = 0; i < keys.length; i++) {
+    for (let j = i + 1; j < keys.length; j++) {
+      const p1 = keys[i], p2 = keys[j];
+      let diff = Math.abs(lonsNow[p1] - lonsNow[p2]);
+      if (diff > 180) diff = 360 - diff;
+      aspectDefs.forEach(a => {
+        const orb = Math.abs(diff - a.deg);
+        if (orb <= 2.5) {
+          found.push(`<span class="badge ${a.type}">${p1} ${a.name} ${p2} (Orb: ${orb.toFixed(2)}°)</span>`);
+        }
+      });
+    }
+  }
+  return found.length ? found.join(" ") : "वर्तमान में कोई सटीक (≤ 2.5° Orb) प्रमुख ग्रह दृष्टि सक्रिय नहीं है।";
+}
+
+function addNewsEvent() {
+  const t = document.getElementById("newsTitle").value.trim();
+  const tm = document.getElementById("newsTimeIST").value;
+  const imp = document.getElementById("newsImpact").value;
+  if (!t || !tm) return;
+  newsEvents.push({ title: t, timeIST: tm, impact: imp });
+  document.getElementById("newsTitle").value = "";
+  updateAll();
+}
+
+function removeNewsEvent(idx) {
+  newsEvents.splice(idx, 1);
+  updateAll();
+}
+
+function renderNewsTracker(baseDateUTC, cfg) {
+  const istParts = getLocalParts(baseDateUTC, "Asia/Kolkata");
+  const listEl = document.getElementById("newsList");
+  listEl.innerHTML = newsEvents.map((ev, idx) => {
+    const [hh, mm] = ev.timeIST.split(":").map(Number);
+    const evUTC = new Date(Date.UTC(istParts.year, istParts.month - 1, istParts.day, hh, mm, 0) - 5.5 * 3600000);
+    const ascDeg = calcAscendant(evUTC, cfg.lat, cfg.lon);
+    const ascKp = getKPDetails(ascDeg);
+    const mumbaiAsc = getKPDetails(calcAscendant(evUTC, 19.0760, 72.8777));
+    return `
+      <div class="news-item">
+        <div>
+          <span class="badge ${ev.impact === 'HIGH' ? 'b-red' : 'b-amber'}">${ev.timeIST} IST</span>
+          <strong>${ev.title}</strong>
+        </div>
+        <div>
+          <span style="color:var(--text-muted);">Exchange Lagna:</span> <b>${ascKp.rashi.hi}</b> (${ascKp.nl}-${ascKp.sl})
+          <span style="color:var(--text-muted); margin-left:6px;">| IST Lagna:</span> <b>${mumbaiAsc.rashi.code}</b>
+          <button onclick="removeNewsEvent(${idx})" style="margin-left:6px; background:none; border:none; color:var(--red-txt); cursor:pointer; font-weight:700;">✕</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderMoonTimeline(now, lonsNow, dashaObj) {
+  const mkp = getKPDetails(lonsNow.Mo);
+  const taraIdx = (mkp.nakIdx - USER_NATAL_NAK_IDX + 27) % 9;
+  const tara = TARA_NAMES[taraIdx];
+  document.getElementById("moonBannerText").innerHTML =
+    `Moon: ${mkp.rashi.hi} (${fmtDMS(mkp.degInRashi)}) | Nak: ${mkp.nak} | NL-SL-SSL: ${mkp.nl}-${mkp.sl}-${mkp.ssl} | Tara Bala: <span class="badge ${tara.good ? 'b-green' : 'b-red'}">${tara.name}</span>`;
+
+  const startMs = now.getTime() - 4 * 3600000;
+  const rows = [];
+  let prevSl = getKPDetails(calcSiderealPlanets(new Date(startMs)).Mo).sl;
+  let upcomingSoon = false;
+
+  for (let m = 5; m <= 28 * 60; m += 5) {
+    const t = new Date(startMs + m * 60000);
+    const p = calcSiderealPlanets(t);
+    const kp = getKPDetails(p.Mo);
+    if (kp.sl !== prevSl) {
+      const nEval = evalNatalHora(kp.sl, dashaObj);
+      const tIdx = (kp.nakIdx - USER_NATAL_NAK_IDX + 27) % 9;
+      const tObj = TARA_NAMES[tIdx];
+      const isPast = t < now;
+      const minsAway = (t.getTime() - now.getTime()) / 60000;
+      if (minsAway > 0 && minsAway <= 5) upcomingSoon = true;
+
+      let biasBadge = `<span class="badge b-amber">VOLATILE TURN</span>`;
+      if (nEval.code === "TRADE" && tObj.good) biasBadge = `<span class="badge b-green">BULLISH / CLEAN TURN</span>`;
+      else if (nEval.code === "AVOID" || !tObj.good) biasBadge = `<span class="badge b-red">TRAP / REVERSAL TURN</span>`;
+
+      rows.push(`
+        <tr style="${isPast ? 'opacity:0.55;' : ''}">
+          <td><b>${fmtTime(t, "Asia/Kolkata")} IST</b> ${isPast ? '(Past)' : ''}</td>
+          <td><span class="badge b-purple">MOON SUB-LORD SHIFT</span></td>
+          <td><b>${prevSl} → ${kp.sl}</b> (${kp.nak} P${kp.pada})</td>
+          <td><span class="badge ${tObj.good ? 'b-green' : 'b-red'}">${tObj.name}</span></td>
+          <td>${biasBadge}</td>
+          <td>${nEval.note} (${tObj.desc})</td>
+        </tr>
+      `);
+      prevSl = kp.sl;
+    }
+  }
+  document.getElementById("moonShiftBody").innerHTML = rows.join("");
+  return upcomingSoon;
+}
+
+// ================= PLACIDUS 6th CSL vs 11th CSL 15-MIN FLIP MATRIX =================
+function manualSessionChange() {
+  const sess = document.getElementById("flipSessionSelect").value;
+  const map = { MUMBAI: "Mumbai_NSE", TOKYO: "Tokyo_TSE", LONDON: "London_LSE", NEWYORK: "New_York" };
+  if (map[sess]) selectedExch = map[sess];
+  updateAll();
+}
+
+function renderFlipMatrix(now, cfg) {
+  const sess = document.getElementById("flipSessionSelect").value;
+  const hideNoise = document.getElementById("hideNoiseChk").checked;
+  const istParts = getLocalParts(now, "Asia/Kolkata");
+
+  let startH = 5, startM = 30, slots = 32; // Tokyo 05:30 - 13:30 IST
+  if (sess === "MUMBAI")  { startH = 9;  startM = 15; slots = 25; } // 09:15 - 15:30 IST
+  if (sess === "LONDON")  { startH = 13; startM = 30; slots = 20; } // 13:30 - 18:30 IST
+  if (sess === "NEWYORK") { startH = 18; startM = 30; slots = 28; } // 18:30 - 01:30 IST
+
+  const baseUTC = Date.UTC(istParts.year, istParts.month - 1, istParts.day, startH, startM, 0) - 5.5 * 3600000;
+  let prevState = null;
+  const rows = [];
+  const majorFlips = [];
+
+  // KP House Significator Scoring: 11th, 2nd, 10th, 6th (gains/victory) vs 8th, 12th, 5th (loss/pullback/reversal)
+  function scorePlanetKP(pCode, sigsMap) {
+    const houses = sigsMap[pCode] || [];
+    let s = 0;
+    if (houses.includes(11)) s += 4.5;
+    if (houses.includes(2))  s += 2.5;
+    if (houses.includes(10)) s += 2.0;
+    if (houses.includes(6))  s += 1.5;
+    if (houses.includes(12)) s -= 4.5;
+    if (houses.includes(8))  s -= 4.0;
+    if (houses.includes(5))  s -= 2.0;
+    return s;
+  }
+
+  for (let i = 0; i <= slots; i++) {
+    const t = new Date(baseUTC + i * 15 * 60000);
+    const lons = calcSiderealPlanets(t);
+    const cusps = calcPlacidusCusps(t, cfg.lat, cfg.lon);
+    const sigsMap = computeKPSignificators(lons, cusps);
+
+    const lagnaSL = getKPDetails(cusps[1]).sl;
+    const sixthCSL = getKPDetails(cusps[6]).sl;
+    const eleventhCSL = getKPDetails(cusps[11]).sl;
+    const moonSL = getKPDetails(lons.Mo).sl;
+
+    // Weighted KP Cusp Sub-Lord Formula matching Gold KP Report
+    const rawScore =
+      scorePlanetKP(eleventhCSL, sigsMap) * 1.4 +
+      scorePlanetKP(lagnaSL, sigsMap) * 1.2 +
+      scorePlanetKP(moonSL, sigsMap) * 1.1 -
+      scorePlanetKP(sixthCSL, sigsMap) * 0.8;
+
+    const score = Number(rawScore.toFixed(2));
+    const bullPct = Math.max(0, Math.min(100, (50 + score * 2.4))).toFixed(1);
+    const bearPct = (100 - parseFloat(bullPct)).toFixed(1);
+
+    const state = score >= 1.0 ? "BULLISH" : (score <= -1.0 ? "BEARISH" : "NEUTRAL");
+    const isFlip = (prevState === "BULLISH" && state === "BEARISH") || (prevState === "BEARISH" && state === "BULLISH");
+
+    if (isFlip) {
+      majorFlips.push(`<li><b>${fmtTime(t, "Asia/Kolkata")} IST:</b> ${prevState} → ${state} (Score: ${score > 0 ? '+' + score : score})</li>`);
+    }
+
+    if (hideNoise && Math.abs(score) < 4 && !isFlip) {
+      if (state !== "NEUTRAL") prevState = state;
+      continue;
+    }
+
+    let badgeHtml = `<span class="badge b-amber">NEUTRAL</span>`;
+    if (isFlip && state === "BULLISH") badgeHtml = `<span class="badge b-green">🔥 FLIP: BEARISH → BULLISH</span>`;
+    else if (isFlip && state === "BEARISH") badgeHtml = `<span class="badge b-red">🔥 FLIP: BULLISH → BEARISH</span>`;
+    else if (state === "BULLISH") badgeHtml = `<span class="badge b-green">BULLISH</span>`;
+    else if (state === "BEARISH") badgeHtml = `<span class="badge b-red">BEARISH</span>`;
+
+    if (state !== "NEUTRAL") prevState = state;
+
+    const isCurrentSlot = Math.abs(now.getTime() - t.getTime()) < 7.5 * 60000;
+    rows.push(`
+      <tr class="${isCurrentSlot ? 'active-row' : ''}">
+        <td><b>${fmtTime(t, "Asia/Kolkata")} IST</b> ${isCurrentSlot ? '👈' : ''}</td>
+        <td style="color:${score >= 0 ? 'var(--green-txt)' : 'var(--red-txt)'}; font-weight:800;">${score > 0 ? '+' + score : score}</td>
+        <td>${bullPct}% / ${bearPct}%</td>
+        <td><b>${PLANET_NAME_EN[lagnaSL]}</b></td>
+        <td><b>${PLANET_NAME_EN[sixthCSL]}</b></td>
+        <td><b>${PLANET_NAME_EN[eleventhCSL]}</b></td>
+        <td><b>${PLANET_NAME_EN[moonSL]}</b></td>
+        <td>${badgeHtml}</td>
+      </tr>
+    `);
+  }
+
+  document.getElementById("majorFlipsBanner").innerHTML = majorFlips.length
+    ? `<strong>Major Intraday Flip Windows (${cfg.name} Cusps):</strong><ul style="margin:4px 0 0 18px; display:flex; flex-wrap:wrap; gap:14px;">${majorFlips.join("")}</ul>`
+    : `<strong>Major Intraday Flip Windows:</strong> Is session window mein koi major reversal flip nahi hai.`;
+
+  document.getElementById("flipTableBody").innerHTML = rows.join("");
+}
+
+// ================= TRADE JOURNAL LOGGER & CSV EXPORTER =================
+function renderJournalSummary() {
+  document.getElementById("logCount").innerText = tradeLogs.length;
+  const el = document.getElementById("journalPreview");
+  if (!tradeLogs.length) {
+    el.innerHTML = "Journal Empty: Jab aap A+ setup par trade lein, toh <b>➕ Log Trade</b> dabayein (Browser mein auto-save hota hai).";
+    return;
+  }
+  const last = tradeLogs[tradeLogs.length - 1];
+  el.innerHTML = `<b>Last Logged Trade:</b> ${last.timestampIST} | ${last.exchange} | <b>${last.direction}</b> | Hora: ${last.horaLord} | Confluence: <b>${last.score}/10</b> | Lot: ${last.lots} | Risk: $${last.riskUsd} | Dasha: ${last.dasha}`;
+}
+
+function logCurrentTrade() {
+  const dir = document.getElementById("tradeDir").value;
+  const entry = {
+    timestampIST: latestSnapshot.timestampIST,
+    exchange: latestSnapshot.exchange,
+    direction: dir,
+    horaLord: latestSnapshot.horaLord,
+    score: latestSnapshot.score,
+    tithi: latestSnapshot.tithi,
+    moonSL: latestSnapshot.moonSL,
+    dasha: latestSnapshot.dasha,
+    paConfirmed: document.getElementById("paConfirm").checked ? "YES" : "NO",
+    lots: latestSnapshot.lots,
+    riskUsd: latestSnapshot.riskUsd
+  };
+  tradeLogs.push(entry);
+  localStorage.setItem("kp_trade_logs_v5", JSON.stringify(tradeLogs));
+  renderJournalSummary();
+  if (audioEnabled) playChime();
+}
+
+function exportJournalCSV() {
+  if (!tradeLogs.length) {
+    alert("Abhi tak koi trade log nahi kiya gaya hai. Pehle 'Log Trade' button par click karein.");
+    return;
+  }
+  const headers = ["Timestamp_IST", "Exchange", "Direction", "Hora_Lord", "Confluence_Score", "Tithi", "Moon_SL", "Dasha_MD_AD_PD", "PA_Confirmed", "Lot_Size", "Risk_USD"];
+  const csvRows = [headers.join(",")];
+  tradeLogs.forEach(r => {
+    csvRows.push([
+      `"${r.timestampIST}"`, `"${r.exchange}"`, r.direction, r.horaLord, r.score,
+      `"${r.tithi}"`, r.moonSL, `"${r.dasha}"`, r.paConfirmed, r.lots, r.riskUsd
+    ].join(","));
+  });
+  const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `KP_Gold_Trade_Journal_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ================= MASTER DASHBOARD UPDATER =================
+function updateAll() {
+  const mode = document.getElementById("modeSelect").value;
+  const simDateEl = document.getElementById("simDate");
+  const simTimeEl = document.getElementById("simTime");
+
+  let now = new Date();
+  if (mode === "SIM") {
+    simDateEl.style.display = "inline-block";
+    simTimeEl.style.display = "inline-block";
+    if (!simDateEl.value) {
+      const p = getLocalParts(now, "Asia/Kolkata");
+      simDateEl.value = `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`;
+      simTimeEl.value = `${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`;
+    }
+    const [yy, mm, dd] = simDateEl.value.split("-").map(Number);
+    const [hh, mi] = simTimeEl.value.split(":").map(Number);
+    now = new Date(Date.UTC(yy, mm - 1, dd, hh, mi, 0) - 5.5 * 3600000);
+  } else {
+    simDateEl.style.display = "none";
+    simTimeEl.style.display = "none";
+  }
+
+  const nowPrev = new Date(now.getTime() - 3600000);
+  const dashaObj = calcVimshottariDasha(now);
+
+  // Render Exchange Tabs + Auto-Sync Flip Session Dropdown
+  const tabsDiv = document.getElementById("exchTabs");
+  tabsDiv.innerHTML = "";
+  Object.entries(EXCHANGES).forEach(([key, cfg]) => {
+    const lp = getLocalParts(now, cfg.tz);
+    const mins = lp.hour * 60 + lp.minute;
+    const isOpen = (lp.weekday >= 1 && lp.weekday <= 5) && (mins >= cfg.open[0] * 60 + cfg.open[1]) && (mins <= cfg.close[0] * 60 + cfg.close[1]);
+    const btn = document.createElement("button");
+    btn.className = `exch-btn ${selectedExch === key ? "active" : ""}`;
+    btn.innerHTML = `<span class="dot ${isOpen ? "open" : "closed"}"></span> ${cfg.name}`;
+    btn.onclick = () => {
+      selectedExch = key;
+      document.getElementById("flipSessionSelect").value = cfg.sessKey;
+      updateAll();
+    };
+    tabsDiv.appendChild(btn);
+  });
+
+  const cfg = EXCHANGES[selectedExch];
+  const locParts = getLocalParts(now, cfg.tz);
+  const offsetHours = cfg.lon / 15;
+  const approxNoonUTC = new Date(Date.UTC(locParts.year, locParts.month - 1, locParts.day, 12, 0, 0) - offsetHours * 3600000);
+  let { sr, ss } = getSunriseSunsetUTC(approxNoonUTC, cfg.lat, cfg.lon);
+  let effectiveWeekday = locParts.weekday;
+
+  if (now < sr) {
+    ({ sr, ss } = getSunriseSunsetUTC(new Date(approxNoonUTC.getTime() - 86400000), cfg.lat, cfg.lon));
+    effectiveWeekday = (locParts.weekday + 6) % 7;
+  }
+  const { sr: nextSr } = getSunriseSunsetUTC(new Date(sr.getTime() + 86400000), cfg.lat, cfg.lon);
+  const dayLord = WEEKDAY_LORDS[effectiveWeekday];
+
+  // 24 Hora Calculation
+  const startIdx = HORA_SEQ.indexOf(dayLord);
+  const dayDur = (ss - sr) / 12;
+  const nightDur = (nextSr - ss) / 12;
+  const horas = [];
+  let activeHora = null;
+
+  for (let i = 0; i < 24; i++) {
+    const hLord = HORA_SEQ[(startIdx + i) % 7];
+    const st = i < 12 ? new Date(sr.getTime() + dayDur * i) : new Date(ss.getTime() + nightDur * (i - 12));
+    const et = i < 12 ? new Date(sr.getTime() + dayDur * (i + 1)) : new Date(ss.getTime() + nightDur * (i - 11));
+    const rel = getVareshRel(dayLord, hLord);
+    const natal = evalNatalHora(hLord, dashaObj);
+    const isCurr = now >= st && now < et;
+    const item = { num: i + 1, hLord, st, et, rel, natal, isCurr };
+    horas.push(item);
+    if (isCurr) activeHora = item;
+  }
+  if (!activeHora) activeHora = horas[0];
+
+  const partDur = (ss - sr) / 8;
+  const rkIdx = RAHU_PART[effectiveWeekday];
+  const inRahu = now >= new Date(sr.getTime() + partDur * rkIdx) && now <= new Date(sr.getTime() + partDur * (rkIdx + 1));
+  const gkIdx = GULIKA_PART[effectiveWeekday];
+  const inGulika = now >= new Date(sr.getTime() + partDur * gkIdx) && now <= new Date(sr.getTime() + partDur * (gkIdx + 1));
+  const inSandhi = ((now - activeHora.st) / 60000 <= 5) || ((activeHora.et - now) / 60000 <= 5);
+
+  const lonsNow = calcSiderealPlanets(now);
+  const lonsPrev = calcSiderealPlanets(nowPrev);
+  const ascDeg = calcAscendant(now, cfg.lat, cfg.lon);
+  const ascKp = getKPDetails(ascDeg);
+  document.getElementById("ayanDisplay").innerText = `KP Ayanamsa: ${fmtDMS(lonsNow._ayan)}`;
+
+  const planetsMap = {};
+  const bodyOrder = ["As", "Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra", "Ke"];
+  planetsMap.As = { code: "As", kp: ascKp, isRetro: false, flags: ["Lagna"], dignityBadge: `<span class="badge b-amber">Active Horizon</span>` };
+
+  ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra", "Ke"].forEach(p => {
+    const kp = getKPDetails(lonsNow[p]);
+    let diff = lonsNow[p] - lonsPrev[p];
+    if (diff > 180) diff -= 360;
+    if (diff < -180) diff += 360;
+    const isRetro = (diff < 0) || p === "Ra" || p === "Ke";
+    const flags = [];
+    if (EXALT[p] === kp.rashi.code) flags.push("UCHHA");
+    else if (DEBIL[p] === kp.rashi.code) flags.push("NEECH");
+    else if (kp.rashi.lord === p) flags.push("Swakshetra");
+
+    if (isRetro && p !== "Ra" && p !== "Ke") flags.push(`VAKRI (${diff.toFixed(3)}°/h)`);
+    if (kp.isSandhi) flags.push("SANDHI");
+    if (COMBUST[p]) {
+      const distSu = Math.min(Math.abs(lonsNow[p] - lonsNow.Su), 360 - Math.abs(lonsNow[p] - lonsNow.Su));
+      if (distSu <= COMBUST[p]) flags.push("ASTA");
+    }
+
+    let badgeType = "b-green";
+    if (flags.includes("NEECH") || flags.includes("SANDHI") || flags.includes("ASTA")) badgeType = "b-red";
+    else if (flags.some(f => f.startsWith("VAKRI"))) badgeType = "b-amber";
+
+    planetsMap[p] = {
+      code: p, kp, isRetro, flags,
+      dignityBadge: flags.length ? `<span class="badge ${badgeType}">${flags.join(" | ")}</span>` : `<span class="badge b-green">Normal (Direct)</span>`
+    };
+  });
+
+  // Dasha & Tithi Display
+  document.getElementById("dashaDetailBox").innerHTML = `
+    <b>सक्रिय Vimshottari Dasha (08 Aug 1999, 20:13 IST):</b>
+    <span class="badge b-purple">MD: ${PLANET_FULL[dashaObj.mdLord]}</span> →
+    <span class="badge b-green">AD: ${PLANET_FULL[dashaObj.adLord]}</span> →
+    <span class="badge b-amber">PD: ${PLANET_FULL[dashaObj.pdLord]}</span><br>
+    <span style="font-size:0.78rem; color:var(--text-muted);">AD Ends: ${fmtDateShort(dashaObj.adEnd)} | PD Ends: ${fmtDateShort(dashaObj.pdEnd)} (इन ग्रहों की होरा में Gold का मूव 2x तेज़ होता है)</span>
+  `;
+
+  const tithi = calcTithiDetails(now, lonsNow);
+  document.getElementById("tithiTypeBadge").innerText = tithi.classObj.type;
+  document.getElementById("tithiDetailBox").innerHTML = `
+    <b>वर्तमान तिथि:</b> ${tithi.paksha} — <b>${tithi.tName}</b> (#${tithi.tithiNum}, ${tithi.pctDone}% पूर्ण | स्वामी: ${PLANET_FULL[tithi.tLord]})<br>
+    <b>प्रभाव:</b> ${tithi.classObj.impact}<br>
+    <b>अगली तिथि परिवर्तन (IST):</b> <span style="color:var(--accent); font-weight:700;">${fmtTime(tithi.endTime, "Asia/Kolkata", true)} IST</span> पर <b>${tithi.nextName}</b> (${tithi.nextClass.type}) लगेगी।
+  `;
+
+  // Top Ribbon
+  let safetyAlerts = [];
+  if (inSandhi) safetyAlerts.push("⏸️ HORA SANDHI (5m)");
+  if (inRahu) safetyAlerts.push("🔴 RAHU KAAL");
+  if (inGulika) safetyAlerts.push("🟠 GULIKA KAAL");
+
+  document.getElementById("topRibbon").innerHTML = `
+    <div class="rib-box">
+      <div class="rib-lbl">🕒 Live Time (Local vs IST)</div>
+      <div class="rib-val">${fmtTime(now, cfg.tz, true)} <span style="font-size:0.78rem; color:var(--text-muted);">(${fmtTime(now, "Asia/Kolkata", true)} IST)</span></div>
+      <div class="rib-sub">${cfg.name} • ${cfg.natalMatch}</div>
+    </div>
+    <div class="rib-box">
+      <div class="rib-lbl">🧭 Local Lagna (~2h) & KP Chain</div>
+      <div class="rib-val">${ascKp.rashi.hi} (${fmtDMS(ascKp.degInRashi)})</div>
+      <div class="rib-sub">NL-SL-SSL: ${ascKp.nl} → ${ascKp.sl} → ${ascKp.ssl}</div>
+    </div>
+    <div class="rib-box">
+      <div class="rib-lbl">🌅 Daily Solar Sunrise / Sunset</div>
+      <div class="rib-val">${fmtTime(sr, cfg.tz)} / ${fmtTime(ss, cfg.tz)}</div>
+      <div class="rib-sub">IST: ${fmtTime(sr, "Asia/Kolkata")} / ${fmtTime(ss, "Asia/Kolkata")}</div>
+    </div>
+    <div class="rib-box">
+      <div class="rib-lbl">🛡️ Execution Safety Filter</div>
+      <div class="rib-val">${safetyAlerts.length ? `<span class="badge b-red">${safetyAlerts.join(" + ")}</span>` : `<span class="badge b-green">🟢 SAFE EXECUTION WINDOW</span>`}</div>
+      <div class="rib-sub">Dasha: ${dashaObj.mdLord}-${dashaObj.adLord}-${dashaObj.pdLord} | Tithi: ${tithi.tName}</div>
+    </div>
+  `;
+
+  // Unified Confluence Score (0-10)
+  const hObj = planetsMap[activeHora.hLord];
+  const isWeakHora = hObj.flags.includes("NEECH") || hObj.flags.includes("SANDHI") || hObj.flags.includes("ASTA") || hObj.kp.avastha.includes("Mrit");
+  let confScore = 5.0;
+  if (activeHora.natal.code === "TRADE") confScore += 2.2;
+  else if (activeHora.natal.code === "TRAP") confScore += 0.4;
+  else if (activeHora.natal.code === "AVOID") confScore -= 3.0;
+
+  if ([dashaObj.mdLord, dashaObj.adLord, dashaObj.pdLord].includes(activeHora.hLord)) confScore += 1.0;
+  confScore += activeHora.rel.score;
+  if (isWeakHora) confScore -= 2.0;
+  if (inSandhi || inRahu) confScore -= 2.5;
+  if (tithi.classObj.bias < 0) confScore -= 1.0;
+  confScore = Math.max(0, Math.min(10, confScore));
+
+  const paOk = document.getElementById("paConfirm").checked;
+  const scoreBox = document.getElementById("confluenceScoreBox");
+  const verdictBadge = document.getElementById("finalVerdictBadge");
+  scoreBox.innerText = `Score: ${confScore.toFixed(1)}/10`;
+
+  if (confScore >= 7.5 && paOk && !inSandhi && !inRahu) {
+    scoreBox.className = "score-meter b-green";
+    verdictBadge.className = "badge b-green";
+    verdictBadge.innerText = "✅ A+ EXECUTE (FULL RISK)";
+  } else if (confScore >= 6.0 && !inSandhi) {
+    scoreBox.className = "score-meter b-amber";
+    verdictBadge.className = "badge b-amber";
+    verdictBadge.innerText = paOk ? "⚖️ SELECTIVE (HALF RISK)" : "⏳ WAIT FOR CHART OB/FVG + MSS";
+  } else {
+    scoreBox.className = "score-meter b-red";
+    verdictBadge.className = "badge b-red";
+    verdictBadge.innerText = "🚫 NO TRADE / CAPITAL PROTECTION";
+  }
+
+  document.getElementById("confluenceSummary").innerHTML = `
+    <b>Natal + Dasha:</b> ${activeHora.natal.label} | <b>Varesh Rel:</b> ${activeHora.rel.label} | <b>Transit:</b> ${isWeakHora ? 'Weak/Neech/Sandhi' : 'Strong'}<br>
+    <b>Rule:</b> ${!paOk ? '⚠️ Pehle Chart par OB/FVG aur MSS checkbox tick karein — bina Price Action confirmation ke entry mana hai.' : '✅ Chart confirmation active — sirf calculated lot size se entry lein.'}
+  `;
+
+  const bal = parseFloat(document.getElementById("accBal").value) || 10000;
+  const rPct = parseFloat(document.getElementById("riskPct").value) || 0.5;
+  const slD = parseFloat(document.getElementById("slPts").value) || 5.0;
+  const riskUsd = bal * (rPct / 100);
+  const lots = Math.max(0.01, (riskUsd / (slD * 100))).toFixed(2);
+  document.getElementById("lotCalcBadge").innerText = `Risk: $${riskUsd.toFixed(0)} | Max Lot: ${lots}`;
+
+  // Hora X-Ray & 3-Layer Chain
+  const remSec = Math.max(0, Math.floor((activeHora.et - now) / 1000));
+  document.getElementById("horaTimer").innerText = `H#${activeHora.num} • ${Math.floor(remSec / 60)}m ${String(remSec % 60).padStart(2, '0')}s शेष`;
+  document.getElementById("horaXrayGrid").innerHTML = `
+    <div class="xray-item"><div class="lbl">चालू होरा स्वामी</div><div class="val" style="color:var(--accent);">${PLANET_FULL[activeHora.hLord]}</div></div>
+    <div class="xray-item"><div class="lbl">Natal + Dasha Status</div><div class="val">${activeHora.natal.label}</div></div>
+    <div class="xray-item"><div class="lbl">राशि व सटीक डिग्री</div><div class="val">${hObj.kp.rashi.hi} • ${fmtDMS(hObj.kp.degInRashi)}</div></div>
+    <div class="xray-item"><div class="lbl">Dignity & अवस्था</div><div class="val">${hObj.dignityBadge} <span style="font-size:0.74rem;">(${hObj.kp.avastha})</span></div></div>
+  `;
+
+  document.getElementById("kpChainSteps").innerHTML = [
+    { role: "Nakshatra Lord (NL)", p: planetsMap[hObj.kp.nl] },
+    { role: "Sub-Lord (SL)", p: planetsMap[hObj.kp.sl] },
+    { role: "Sub-Sub-Lord (SSL)", p: planetsMap[hObj.kp.ssl] }
+  ].map(item => `
+    <div class="kp-node">
+      <div class="role">${item.role}</div>
+      <div class="pl">${PLANET_FULL[item.p.code]}</div>
+      <div class="st">${item.p.kp.rashi.code} (${Math.floor(item.p.kp.degInRashi)}°) • ${item.p.dignityBadge}</div>
+    </div>
+  `).join("");
+
+  // Trinity & Hindi Market Brief
+  const fTithi = tithi.tLord === dayLord || MAITRI[dayLord].f.includes(tithi.tLord);
+  const fHora = activeHora.hLord === dayLord || MAITRI[dayLord].f.includes(activeHora.hLord);
+  const tb = document.getElementById("trinityBadge");
+  tb.className = (fTithi && fHora) ? "badge b-green" : ((!fTithi && !fHora) ? "badge b-red" : "badge b-amber");
+  tb.innerText = (fTithi && fHora) ? `🔥 TRINITY ALIGNED (${dayLord}+${tithi.tLord}+${activeHora.hLord})` : `⚖️ TRINITY (${dayLord}/${tithi.tLord}/${activeHora.hLord})`;
+
+  document.getElementById("hindiBrief").innerHTML = `
+    <b>Kundli + Dasha + Transit Samanvay:</b> आपकी कुंडली (कर्क लग्न, मृगशिरा नक्षत्र) और <b>${dashaObj.mdLord}-${dashaObj.adLord}-${dashaObj.pdLord}</b> दशा के अनुसार <b>${PLANET_FULL[activeHora.hLord]}</b> की होरा का निर्णय <b>${activeHora.natal.label}</b> है (${activeHora.natal.note})।
+    वारेश <b>${PLANET_FULL[dayLord]}</b> से संबंध <b>${activeHora.rel.label}</b> है और आज <b>${tithi.tName} (${tithi.classObj.type})</b> चल रही है।
+  `;
+
+  document.getElementById("marketImpactCards").innerHTML = [
+    {
+      title: "🥇 Gold (XAUUSD) & Silver",
+      badge: activeHora.natal.code === "TRADE" ? "Clean Trend" : (activeHora.natal.code === "TRAP" ? "Wait Sweep" : "Avoid Chop"),
+      bType: activeHora.natal.code === "TRADE" ? "b-green" : (activeHora.natal.code === "TRAP" ? "b-purple" : "b-red"),
+      text: `${activeHora.natal.note} ${tithi.classObj.bias < 0 ? 'रिक्ता तिथि के कारण ब्रेकआउट पर सावधान रहें।' : ''}`
+    },
+    {
+      title: "🛢️ Crude Oil (USOIL/MCX)",
+      badge: (activeHora.hLord === "Ma" || activeHora.hLord === "Ra") ? "High Spike" : "Range/Tech",
+      bType: (activeHora.hLord === "Ma" || activeHora.hLord === "Ra") ? "b-red" : "b-amber",
+      text: `मंगल (${planetsMap.Ma.kp.rashi.code}) और अग्नि/वायु तत्व के संतुलन से Crude Oil में लिक्विडिटी लेवल्स पर स्कैल्प करें।`
+    },
+    {
+      title: "📈 Index / Equities",
+      badge: (!inRahu && !inSandhi && confScore >= 6.5) ? "Active Setup" : "Safety Filter",
+      bType: (!inRahu && !inSandhi && confScore >= 6.5) ? "b-green" : "b-amber",
+      text: `स्थानीय लग्न <b>${ascKp.rashi.hi}</b> (${ascKp.nl}-${ascKp.sl}) सक्रिय है। न्यूज़ टाइम पर लग्न बदलाव पर नज़र रखें।`
+    }
+  ].map(c => `<div class="m-card"><h4><span>${c.title}</span><span class="badge ${c.bType}">${c.badge}</span></h4><p>${c.text}</p></div>`).join("");
+
+  // Planet Table & Global Aspects
+  document.getElementById("planetTableBody").innerHTML = bodyOrder.map(code => {
+    const obj = planetsMap[code];
+    const isH = code === activeHora.hLord;
+    return `
+      <tr class="${isH ? 'active-row' : ''}">
+        <td><b>${code}</b> ${isH ? '👑' : ''}</td>
+        <td>${fmtDMS(obj.kp.degInRashi)}</td>
+        <td>${obj.kp.rashi.code} (${obj.kp.rashi.tattva.split(' ')[0]})</td>
+        <td>${obj.kp.nak} (${obj.kp.pada})</td>
+        <td><b>${obj.kp.nl}-${obj.kp.sl}-${obj.kp.ssl}</b></td>
+        <td>${obj.kp.avastha}</td>
+        <td>${obj.dignityBadge}</td>
+      </tr>
+    `;
+  }).join("");
+  document.getElementById("aspectList").innerHTML = calcGlobalAspects(lonsNow);
+
+  // 24 Hora Table
+  document.getElementById("vareshLabel").innerText = `वारेश: ${PLANET_FULL[dayLord]}`;
+  document.getElementById("horaTableBody").innerHTML = horas.map(h => `
+    <tr class="${h.isCurr ? 'active-row' : ''}">
+      <td>${h.isCurr ? '👉 ' : ''}${h.num}</td>
+      <td>${fmtTime(h.st, cfg.tz)} - ${fmtTime(h.et, cfg.tz)}</td>
+      <td>${fmtTime(h.st, "Asia/Kolkata")} - ${fmtTime(h.et, "Asia/Kolkata")}</td>
+      <td><b>${h.hLord}</b></td>
+      <td><span class="badge ${h.rel.type}">${h.rel.label}</span></td>
+      <td>${h.natal.label}</td>
+    </tr>
+  `).join("");
+
+  renderNewsTracker(now, cfg);
+  const moonShiftSoon = renderMoonTimeline(now, lonsNow, dashaObj);
+  renderFlipMatrix(now, cfg);
+
+  if (audioEnabled && (confScore >= 7.5 || moonShiftSoon) && (Date.now() - lastChimeEpoch > 600000)) {
+    playChime();
+    lastChimeEpoch = Date.now();
+  }
+
+  latestSnapshot = {
+    timestampIST: `${fmtDateShort(now)} ${fmtTime(now, "Asia/Kolkata", true)} IST`,
+    exchange: cfg.name,
+    horaLord: activeHora.hLord,
+    score: confScore.toFixed(1),
+    tithi: tithi.tName,
+    moonSL: planetsMap.Mo.kp.sl,
+    dasha: `${dashaObj.mdLord}-${dashaObj.adLord}-${dashaObj.pdLord}`,
+    lots,
+    riskUsd: riskUsd.toFixed(2)
+  };
+  renderJournalSummary();
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById("themeBtn");
+  if (html.getAttribute("data-theme") === "dark") {
+    html.setAttribute("data-theme", "light");
+    btn.innerText = "🌙 Dark";
+  } else {
+    html.setAttribute("data-theme", "dark");
+    btn.innerText = "☀️ Light";
+  }
+}
+
+updateAll();
+setInterval(() => {
+  if (document.getElementById("modeSelect").value === "LIVE") updateAll();
+}, 1000);
+</script>
+</body>
+</html>
